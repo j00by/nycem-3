@@ -1,196 +1,283 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>NYC Climate Risks & Housing Mobility - Climate Gentrification</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
+    <meta charset="utf-8">
+    <title>NYC Climate Risks & Housing Mobility - Climate Gentrification</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
-<style>
-    #map {
-        position: fixed;
-        width: 50%;
-    }
-    #features {
-        width: 50%;
-        margin-left: 50%;
-        font-family: sans-serif;
-        overflow-y: scroll;
-        background-color: #fafafa;
-    }
-    section {
-        padding: 25px 50px;
-        line-height: 25px;
-        border-bottom: 1px solid #ddd;
-        opacity: 0.25;
-        font-size: 13px;
-    }
-    section.active {
-        opacity: 1;
-    }
-    section:last-child {
-        border-bottom: none;
-        margin-bottom: 200px;
-    }
-</style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* Consistent font for the whole page */
+        }
 
-<div id="map"></div>
-<div id="features">
-    <section id="redhook" class="active">
-        <h3>Red Hook, Brooklyn</h3>
-        <p>
-            Red Hook is a waterfront neighborhood significantly impacted by Hurricane Sandy. It has historically been an industrial area with a mixed-income residential community.
-        </p>
-        <p>Since Hurricane Sandy, Red Hook has received substantial investment in resilience infrastructure, such as elevated landscapes and revamped building codes, attracting higher-income residents and developers. This has led to a surge in property values, displacing long-time residents.
-        </p>
-        <p><a href="https://macblog.mcmaster.ca/literature-culture-anthropocene/blog/gentrification-and-global-warming-and-housing-oh-my-the-fate-of-nyc-in-a-rapidly-changing-climate/" target="_blank">Gentrification and Global Warming and Housing, Oh My! The Fate of NYC in a Rapidly Changing Climate"</a> discusses the intertwined challenges of climate change, gentrification, and housing, particularly in vulnerable neighborhoods like Red Hook.</p>
-    </section>
-    <section id="rockaways">
-        <h3>THe Rockaways, Queens</h3>
-        <p>A narrow peninsula, The Rockaways is prone to storm surges and flooding, highlighted during Hurricane Sandy.</p>
-        <p>Resilience projects such as beach nourishment and sea wall construction have made The Rockaways more appealing to developers. While these projects are critical for protecting the area from future storms, they have also led to increased housing prices and interest from outside the community.</p>
-        <p><a href="#">"Urban Adaptation and New York City"</a> provides a comprehensive review of adaptation strategies across NYC, including The Rockaways, and discusses their implications on local demographics.</p>
-    </section>
-    <section id="LES">
-        <h3>Lower East Side, Manhattan</h3>
-        <p>
-            The Lower East Side (LES) is one of Manhattan's most culturally diverse areas, with a significant portion of its waterfront vulnerable to flooding.
-        </p>
-        <p>The East Side Coastal Resiliency Project aims to protect the LES from rising sea levels and storm surges. However, these enhancements are driving up property values, making the LES increasingly unaffordable for its traditional residents.</p>
-        <p><a href="https://www.mdpi.com/2076-0760/11/10/451" target="_blank">"Design for Climate Change in the Neoliberal Present: Gentrification, Ecocide, and the Loss of Urbanity in New York City"</a> explores how climate urbanism initiatives, aimed at adapting to or mitigating climate change impacts, can inadvertently lead to gentrification, ecological destruction, and a diminishing sense of community in urban settings</p>
-    </section>
-    <section id="canarsie">
-        <h3>Canarsie, Brooklyn</h3>
-        <p>
-            Canarsie lies in the floodplains of Jamaica Bay and was among the neighborhoods hit hard by Hurricane Sandy.
-        </p>
-    <p>Post-Sandy, flood insurance reforms and rising premiums have disproportionately affected Canarsie's long-term residents, many of whom are from minority backgrounds. This financial strain is compounded by speculative real estate investments focusing on its "flood-safe" status.</p>
-    <p>The New Republic article <a href="https://newrepublic.com/article/154044/new-york-superstorm-sandy-economic-climate-migrants" target="_blank">"New York's Invisible Climate Migrants"</a> discusses the slow, economic climate retreat from Canarsie, Brooklyn, where residents, impacted by Hurricane Sandy, face challenges such as rising flood insurance costs and gentrification, leading some to leave the area</p>
-    </section>
-    <section id="statenisland">
-        <h3>Staten Island's East Shore</h3>
-        <p>
-            The East Shore of Staten Island experienced severe devastation during Hurricane Sandy, leading to a significant rethink in terms of urban planning and community safety.
-        </p>
-        <p>Managed retreat initiatives and resilience building measures post-Sandy have made parts of the East Shore particularly attractive for new developments. These projects, while necessary, have altered the community fabric, introducing higher-income households and new demographics.</p>
-        <p>The book <a href="https://www.pediment.com/products/hurricane-sandy-staten-island-pictorial-hardcover-book" target="_blank">"Hurricane Sandy: The Storm that Changed Staten Island"</a> documents the extensive damage caused by the hurricane through photographs and a timeline, highlighting the significant impact on the area including the destruction of homes and businesses, and the loss of electricity and lives</p>
-    </section>
-    <section id="test">
-        <h3></h3>
-        <p>
-        </p>
-    </section>
-</div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiajAwYnkiLCJhIjoiY2x1bHUzbXZnMGhuczJxcG83YXY4czJ3ayJ9.S5PZpU9VDwLMjoX_0x5FDQ';
-const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/j00by/cluvgg2l400il01pa2we18jys', // Using the Outdoors style
-    center: [-74.0102363, 40.6733459],  // Coordinates for Red Hook
-    zoom: 14,
-    bearing: 27,
-    pitch: 30
-});
+        #map {
+            position: fixed;
+            width: 50%;
+        }
 
+        #features {
+            width: 50%;
+            margin-left: 50%;
+            font-family: sans-serif;
+            font-size: 13px;
+            overflow-y: scroll;
+            background-color: #fafafa;
+        }
 
-// Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());
+        .cta {
+            text-align: center;
+            padding: 3px;
+            background-color: #000;
+            /* Light blue background for visibility */
+            color: #fff;
+            /* Dark text for contrast */
+            border-bottom: 4px solid #475b64;
+            /* Thematic blue border */
+        }
 
-class NorthArrowControl {
-    onAdd(map) {
-        this.map = map;
-        this.container = document.createElement('div');
-        this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-        this.container.style.transform = 'rotate(0deg)';
-        this.container.innerHTML = '<button aria-label="North Arrow" disabled style="background-size: cover; height: 30px; width: 30px; background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e8/Mapbox-logo.svg);"></button>';
+        section {
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 1px solid #ddd;
+            opacity: 0.25;
+            transition: opacity 0.3s;
+            /* Smooth transition for hover effects */
+        }
 
-        this.map.on('rotate', () => {
-            // Get the current bearing and adjust the arrow's rotation accordingly
-            const bearing = this.map.getBearing();
-            this.container.firstChild.style.transform = `rotate(${-bearing}deg)`;
+        section.active {
+            opacity: 1;
+        }
+
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 200px;
+        }
+
+        a {
+            color: #82aabf;
+            /* Light blue to match your main site's button gradient */
+            text-decoration: none;
+            /* No underline for a cleaner look */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        a:hover,
+        a:focus {
+            color: #2a6587;
+            /* Darker blue for hover state to match button active state */
+            text-decoration: underline;
+            /* Underline on hover for better visibility */
+        }
+    </style>
+
+    <div id="map"></div>
+    <div id="features">
+        <div class="cta">
+            <p><b>Interactive Map:</b> Scroll down to see how different areas are impacted by climate change and
+                gentrification. The map includes updated 2020 projections of the <a
+                    href="https://data.cityofnewyork.us/Environment/Sea-Level-Rise-Maps-2020s-100-year-Floodplain-/ezfn-5dsb"
+                    target="_blank">100-year floodplain</a> to reflect current sea level rise scenarios.</p>
+        </div>
+        <section id="redhook" class="active">
+            <h3>Red Hook, Brooklyn</h3>
+            <p>
+                Red Hook is a waterfront neighborhood significantly impacted by Hurricane Sandy. It has historically
+                been an industrial area with a mixed-income residential community.
+            </p>
+            <p>Since Hurricane Sandy, Red Hook has received substantial investment in resilience infrastructure, such as
+                elevated landscapes and revamped building codes, attracting higher-income residents and developers. This
+                has led to a surge in property values, displacing long-time residents.
+            </p>
+            <p><a href="https://macblog.mcmaster.ca/literature-culture-anthropocene/blog/gentrification-and-global-warming-and-housing-oh-my-the-fate-of-nyc-in-a-rapidly-changing-climate/"
+                    target="_blank">Gentrification and Global Warming and Housing, Oh My! The Fate of NYC in a Rapidly
+                    Changing Climate"</a> discusses the intertwined challenges of climate change, gentrification, and
+                housing, particularly in vulnerable neighborhoods like Red Hook.</p>
+        </section>
+        <section id="rockaways">
+            <h3>THe Rockaways, Queens</h3>
+            <p>A narrow peninsula, The Rockaways is prone to storm surges and flooding, highlighted during Hurricane
+                Sandy.</p>
+            <p>Resilience projects such as beach nourishment and sea wall construction have made The Rockaways more
+                appealing to developers. While these projects are critical for protecting the area from future storms,
+                they have also led to increased housing prices and interest from outside the community.</p>
+            <p><a href="#">"Urban Adaptation and New York City"</a> provides a comprehensive review of adaptation
+                strategies across NYC, including The Rockaways, and discusses their implications on local demographics.
+            </p>
+        </section>
+        <section id="LES">
+            <h3>Lower East Side, Manhattan</h3>
+            <p>
+                The Lower East Side (LES) is one of Manhattan's most culturally diverse areas, with a significant
+                portion of its waterfront vulnerable to flooding.
+            </p>
+            <p>The East Side Coastal Resiliency Project aims to protect the LES from rising sea levels and storm surges.
+                However, these enhancements are driving up property values, making the LES increasingly unaffordable for
+                its traditional residents.</p>
+            <p><a href="https://www.mdpi.com/2076-0760/11/10/451" target="_blank">"Design for Climate Change in the
+                    Neoliberal Present: Gentrification, Ecocide, and the Loss of Urbanity in New York City"</a> explores
+                how climate urbanism initiatives, aimed at adapting to or mitigating climate change impacts, can
+                inadvertently lead to gentrification, ecological destruction, and a diminishing sense of community in
+                urban settings</p>
+        </section>
+        <section id="canarsie">
+            <h3>Canarsie, Brooklyn</h3>
+            <p>
+                Canarsie lies in the floodplains of Jamaica Bay and was among the neighborhoods hit hard by Hurricane
+                Sandy.
+            </p>
+            <p>Post-Sandy, flood insurance reforms and rising premiums have disproportionately affected Canarsie's
+                long-term residents, many of whom are from minority backgrounds. This financial strain is compounded by
+                speculative real estate investments focusing on its "flood-safe" status.</p>
+            <p>The New Republic article <a
+                    href="https://newrepublic.com/article/154044/new-york-superstorm-sandy-economic-climate-migrants"
+                    target="_blank">"New York's Invisible Climate Migrants"</a> discusses the slow, economic climate
+                retreat from Canarsie, Brooklyn, where residents, impacted by Hurricane Sandy, face challenges such as
+                rising flood insurance costs and gentrification, leading some to leave the area</p>
+        </section>
+        <section id="statenisland">
+            <h3>Staten Island's East Shore</h3>
+            <p>
+                The East Shore of Staten Island experienced severe devastation during Hurricane Sandy, leading to a
+                significant rethink in terms of urban planning and community safety.
+            </p>
+            <p>Managed retreat initiatives and resilience building measures post-Sandy have made parts of the East Shore
+                particularly attractive for new developments. These projects, while necessary, have altered the
+                community fabric, introducing higher-income households and new demographics.</p>
+            <p>The book <a
+                    href="https://www.pediment.com/products/hurricane-sandy-staten-island-pictorial-hardcover-book"
+                    target="_blank">"Hurricane Sandy: The Storm that Changed Staten Island"</a> documents the extensive
+                damage caused by the hurricane through photographs and a timeline, highlighting the significant impact
+                on the area including the destruction of homes and businesses, and the loss of electricity and lives</p>
+        </section>
+
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiajAwYnkiLCJhIjoiY2x1bHUzbXZnMGhuczJxcG83YXY4czJ3ayJ9.S5PZpU9VDwLMjoX_0x5FDQ';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/j00by/cluvgg2l400il01pa2we18jys', // Using the Outdoors style
+            center: [-74.0102363, 40.6733459],  // Coordinates for Red Hook
+            zoom: 14,
+            bearing: 27,
+            pitch: 30
         });
 
-        return this.container;
-    }
 
-    onRemove() {
-        this.container.parentNode.removeChild(this.container);
-        this.map = undefined;
-    }
-}
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
 
+        class NorthArrowControl {
+            onAdd(map) {
+                this.map = map;
+                this.container = document.createElement('div');
+                this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+                this.container.style.transform = 'rotate(0deg)';
+                this.container.innerHTML = '<button aria-label="North Arrow" disabled style="background-size: cover; height: 30px; width: 30px; background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e8/Mapbox-logo.svg);"></button>';
 
-// Chapters are the locations hit by climate gentrification
-    const chapters = {
-    'redhook': {
-        bearing: 27,
-        center: [-74.0179611, 40.6744525],
-        zoom: 14,
-        pitch: 30
-    },
-    'rockaways': {
-        duration: 6000,
-        center: [-73.8113, 40.5867],
-        bearing: 150,
-        zoom: 13,
-        pitch: 20
-    },
-    'LES': {
-        bearing: 90,
-        center: [-73.9843, 40.7150],
-        zoom: 14,
-        speed: 0.6,
-        pitch: 40
-    },
-    'canarsie': {
-        bearing: 90,
-        center: [-73.89211347171427, 40.63269197103194],
-        zoom: 13.3,
-        pitch: 20
-    },
-    'statenisland': {
-        bearing: 45,
-        center: [-74.1083263, 40.5787531],
-        zoom: 12.5,
-        pitch: 30,
-        speed: 0.5
-    }
-};
+                this.map.on('rotate', () => {
+                    // Get the current bearing and adjust the arrow's rotation accordingly
+                    const bearing = this.map.getBearing();
+                    this.container.firstChild.style.transform = `rotate(${-bearing}deg)`;
+                });
 
-    let activeChapterName = 'redhook';
-    function setActiveChapter(chapterName) {
-        if (chapterName === activeChapterName) return;
+                return this.container;
+            }
 
-        map.flyTo(chapters[chapterName]);
-
-        document.getElementById(chapterName).classList.add('active');
-        document.getElementById(activeChapterName).classList.remove('active');
-
-        activeChapterName = chapterName;
-    }
-
-    function isElementOnScreen(id) {
-        const element = document.getElementById(id);
-        const bounds = element.getBoundingClientRect();
-        return bounds.top < window.innerHeight / 2 && bounds.bottom > window.innerHeight / 2;
-    }
-
-    // On every scroll event, check which element is on screen
-    window.onscroll = () => {
-        for (const chapterName in chapters) {
-            if (isElementOnScreen(chapterName)) {
-                setActiveChapter(chapterName);
-                break;
+            onRemove() {
+                this.container.parentNode.removeChild(this.container);
+                this.map = undefined;
             }
         }
-    };
-</script>
+
+
+        // Chapters are the locations hit by climate gentrification
+        const chapters = {
+            'redhook': {
+                bearing: 27,
+                center: [-74.0179611, 40.6744525],
+                zoom: 14,
+                pitch: 30
+            },
+            'rockaways': {
+                duration: 6000,
+                center: [-73.8113, 40.5867],
+                bearing: 150,
+                zoom: 13,
+                pitch: 20
+            },
+            'LES': {
+                bearing: 90,
+                center: [-73.9843, 40.7150],
+                zoom: 14,
+                speed: 0.6,
+                pitch: 40
+            },
+            'canarsie': {
+                bearing: 90,
+                center: [-73.89211347171427, 40.63269197103194],
+                zoom: 13.3,
+                pitch: 20
+            },
+            'statenisland': {
+                bearing: 45,
+                center: [-74.1083263, 40.5787531],
+                zoom: 12.5,
+                pitch: 30,
+                speed: 0.5
+            }
+        };
+
+        let activeChapterName = 'redhook';
+        function setActiveChapter(chapterName) {
+            if (chapterName === activeChapterName) return;
+
+            map.flyTo(chapters[chapterName]);
+
+            document.getElementById(chapterName).classList.add('active');
+            document.getElementById(activeChapterName).classList.remove('active');
+
+            activeChapterName = chapterName;
+        }
+
+        function isElementOnScreen(id) {
+            const element = document.getElementById(id);
+            const bounds = element.getBoundingClientRect();
+            return bounds.top < window.innerHeight / 2 && bounds.bottom > window.innerHeight / 2;
+        }
+
+        // On every scroll event, check which element is on screen
+        window.onscroll = () => {
+            for (const chapterName in chapters) {
+                if (isElementOnScreen(chapterName)) {
+                    setActiveChapter(chapterName);
+                    break;
+                }
+            }
+        };
+    </script>
 
 </body>
+
 </html>
