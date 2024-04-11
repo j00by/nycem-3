@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Climate Risks & Housing Mobility</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+</head>
+
+<body>
+    <!-- Full-size header image -->
+    <div id="fullSizeHeader">
+        <img src="images/nycem-header.jpg" alt="Header Image">
+    </div>
+
+    <!-- Static navigation bar -->
+    <nav>
+        <!-- Hamburger menu icon for mobile -->
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            &#9776; <!-- Represents the hamburger icon -->
+        </div>
+
+        <!-- Navigation menu for anchor links to sections -->
+        <ul id="nav-menu">
+            <li><a href="#climateGentrification">Climate Gentrification</a></li>
+            <li><a href="#climateMigration">Climate Migration</a></li>
+            <li><a href="#climateDisplacement">Climate Displacement</a></li>
+        </ul>
+    </nav>
+
+    <!-- Introduction Content - Add a storytelling narrative -->
+    <main>
+        <h2>Overview</h2>
+        <p>
+            In the face of climate change, cities around the globe are grappling with a trio of interconnected
+            phenomena: climate gentrification, migration, and displacement. New York City, with its diverse population
+            and complex urban landscape, stands at the forefront of this challenge. As we delve into the intricacies of
+            these issues, it's crucial to understand not only their definitions but also their profound implications for
+            communities and urban planning.
+        </p>
+
+        <!-- Scrollytelling sections -->
+        <!-- Section for Climate Gentrification -->
+        <section id="climateGentrification" class="scroll-section">
+            <h2>Climate Gentrification</h2>
+            <p>Climate Gentrification refers to the phenomenon where neighborhoods less susceptible to climate change
+                impacts become more desirable, leading to increased property values and the displacement of lower-income
+                residents. This process is significant because it underscores the intersection of climate resilience and
+                social inequality. In New York City, this is observed in areas like the Brooklyn waterfront, where
+                post-industrial neighborhoods perceived as safer from sea-level rise have seen a surge in development.
+                This has led to the displacement of long-standing, lower-income communities, highlighting the need for
+                inclusive urban planning.</p>
+        </section>
+
+          <!-- Mapbox on Climate Gentrification (Class 3) -->
+   <iframe src="map-cg.html" style="width: 100%; height: 600px; border: none;" allowfullscreen></iframe>
+
+
+        <!-- Section for Climate Migration -->
+        <section id="climateMigration" class="scroll-section">
+            <h2>Climate Migration</h2>
+            <p>Climate Migration is the movement of people, either within their country or across borders, driven by
+                sudden or gradual changes in their environment due to climate change. This migration is crucial to
+                understand because it reflects the direct human impact of climate change. In the context of New York
+                City, climate migration manifests through the influx of individuals from regions severely affected by
+                climate change, showcasing internal climate migration. This underscores the importance of preparing
+                urban areas for the influx of climate migrants.</p>
+        </section>
+
+        <!-- Section for Climate Displacement -->
+        <section id="climateDisplacement" class="scroll-section">
+            <h2>Climate Displacement</h2>
+            <p>Climate Displacement occurs when individuals or communities are forced to leave their homes due to
+                climate change-induced environmental changes. This displacement is a critical issue as it highlights the
+                urgent need for climate adaptation and mitigation strategies. In New York City, the aftermath of
+                Hurricane Sandy provided a stark example of climate displacement, with initiatives like the state's
+                buyout program in Staten Island's Oakwood Beach. This case illustrates the complex challenges of
+                managing climate displacement.</p>
+        </section>
+    </main>
+
+
+
+    <!-- Content with interactive buttons and information display at the bottom -->
+    <div id="content">
+        <!-- Buttons to dynamically update content below -->
+        <div id="strategyButtons">
+            <button id="btnHazard" class="strategy-btn">What is the Hazard?</button>
+            <button id="btnRisk" class="strategy-btn">What is the Risk?</button>
+            <button id="btnRiskManagement" class="strategy-btn">How to Manage the Risk?</button>
+        </div>
+        <div id="definitionBox">
+            <!-- Separate elements for title and content to allow for dynamic updates -->
+            <h2 id="definitionTitle">Explore the Impacts</h2>
+            <p id="definitionContent">Click on a button to learn more about <b>climate gentrification.</b></p>
+        </div>
+    </div>
+
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
